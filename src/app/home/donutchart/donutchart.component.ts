@@ -11,7 +11,7 @@ export class DonutchartComponent implements OnInit {
 
   public doughnutChartLabels: string[] = ['Calorie intake', 'Calorie excess', 'Calorie pending'];
   public doughnutChartData: number[] = [350, 450, 100];
-  public doughnutChartType: string = 'doughnut';
+  public doughnutChartType: String = 'doughnut';
 
   constructor() { }
 

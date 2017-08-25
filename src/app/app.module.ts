@@ -5,39 +5,36 @@ import { AppComponent } from './app.component';
 import {HttpModule} from '@angular/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { StatsComponent } from './stats/stats.component';
-import { ChartComponent } from './home/chart/chart.component';
-import { DaystatComponent } from './home/daystat/daystat.component';
-import { DaymealComponent } from './home/daymeal/daymeal.component';
+
 import { ChartsModule } from 'ng2-charts';
-import { DonutchartComponent } from './home/donutchart/donutchart.component';
 import { FixedfooterComponent } from './footer/fixedfooter/fixedfooter.component';
-import { ConsumebarComponent } from './home/consumebar/consumebar.component';
 import { CalorieintakeComponent } from './calorieintake/calorieintake.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {ProfileComponent} from './profile/profile.component';
 import { PageNotFoundComponentComponent } from './page-not-found-component/page-not-found-component.component';
-import { HomeComponent } from './home/home.component';
 import { MealformComponent } from './mealform/mealform.component';
 import { MealtypeComponent } from './mealform/mealtype/mealtype.component';
-import { BurncalorieComponent } from './burncalorie/burncalorie.component';
-import { DatesComponent } from './home/daystat/dates/dates.component';
+
 
 // service
 import {ProfileService} from './profile/profile.service';
 import {MealService} from './mealform/meal.service';
 
+// import custom modules
+import { HomeModule } from './home/home.module';
+import { BurncalorieModule } from './burncalorie/burncalorie.module';
+import { ProfileModule } from './profile/profile.module';
+
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'profile',      component: ProfileComponent },
-  { path: 'home', component: HomeComponent},
+  // { path: 'home', component: HomeComponent},
   { path: 'meal', component: MealformComponent},
   { path: 'meal/:id', component: MealformComponent},
-  { path: 'burn-calorie', component: BurncalorieComponent},
-  { path: '#', redirectTo: '/home' , pathMatch: 'full'},
-  { path: '', redirectTo: '/home' , pathMatch: 'full'},
+  // { path: 'burn-calorie', loadChildren: 'app/burncalorie/burncalorie.module#BurncalorieModule'},
+  // { path: 'home', loadChildren: 'app/home/home.module#HomeModule' },
+  // { path: '#', redirectTo: '/home' , pathMatch: 'full'},
+  // { path: '', redirectTo: '/home' , pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponentComponent }
 
 
@@ -48,28 +45,21 @@ const appRoutes: Routes = [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    StatsComponent,
-    ChartComponent,
-    DaystatComponent,
-    DaymealComponent,
-    DonutchartComponent,
     FixedfooterComponent,
-    ConsumebarComponent,
     CalorieintakeComponent,
     DashboardComponent,
-    ProfileComponent,
     PageNotFoundComponentComponent,
-    HomeComponent,
     MealformComponent,
-    MealtypeComponent,
-    BurncalorieComponent,
-    DatesComponent
+    MealtypeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     ChartsModule,
+    HomeModule,
+    BurncalorieModule,
+    ProfileModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

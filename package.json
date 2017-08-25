@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build"
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -64,8 +64,7 @@
     "bootstrap": "^4.0.0-alpha.6",
     "chart.js": "^2.6.0",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.2.1",
-    "popper.js": "^1.12.3"
+    "jquery": "^3.2.1"
   },
   "engines": {
     "node": "6.11.2",
