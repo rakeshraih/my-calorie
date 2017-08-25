@@ -1,0 +1,28 @@
+.meal-type{
+  width:200px !important;
+
+  margin:2px;
+  text-align: center;
+}
+
+.meal-type-img{
+  height: 45px;
+  width: 45px;
+  background: url(../../../assets/images/foods.jpg) -75px -45px;
+  border-radius: 50%;
+  display: inline-block;
+  float: left;
+  margin-left: 20px;
+}
+
+.meal-type-val{
+  display: inline-block;
+}
+
+.meal-type-container{
+  max-width: 180px !important;
+  //border: 1px solid #CCC;
+  text-align: center;
+  margin-left: 20px;
+  margin-top: 20px;
+}

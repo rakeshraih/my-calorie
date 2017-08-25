@@ -1,0 +1,15 @@
+.fixed-footer{
+  position: fixed;
+  width: 110%;
+  bottom: 0;
+  z-index: 10;
+  display:none;
+  margin-bottom: 0px !important;
+  min-width: 350px !important;
+}
+
+@media screen and (max-width: 350px) {
+  .fixed-footer{
+    display:block;
+  }
+}

@@ -1,0 +1,29 @@
+.mobile-menu{
+  position: absolute;
+  height: 500px;
+  width: 200px;
+  background: grey;
+  background-color: #5b77de;
+  z-index: 10;
+  display: none;
+}
+
+.move-main-page-left{
+   animation: moveMainPageLeft 1s;
+   animation-fill-mode: forwards;
+ }
+
+@keyframes moveMainPageLeft {
+  0%   {left: 0px;}
+  100% {left: 200px;}
+}
+
+.move-main-page-right{
+  animation: moveMainPageRight 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes moveMainPageRight {
+  0%   {left: 200px;}
+  100% {left: 0px;}
+}

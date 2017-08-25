@@ -1,0 +1,42 @@
+.calorie-count-tbl{
+  text-align: center;
+
+  tr{
+
+    td{
+      border: 1px  solid #CCC;
+      border-top: none;
+    }
+  }
+}
+
+.month-date-list{
+
+  text-align: center;
+
+  span{
+    display:block;
+  }
+}
+
+.month-date-list.month-date{
+  background: linear-gradient(to bottom, #CCC, transparent);
+}
+
+div.box {
+  box-sizing: border-box;
+  //width: auto;
+  border: 1px solid red;
+  float: left;
+  text-align:center;
+  width: auto;
+}
+
+.month-text{
+  background:green;
+  padding:10px;
+}
+
+.pagination{
+  margin-top: 0px;
+}

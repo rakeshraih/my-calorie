@@ -1,0 +1,28 @@
+<div>
+
+  <div class="list-group">
+  <a href="#" class="list-group-item active">
+    My need is&nbsp; <span style="text-align: right;"> {{profile.caloriIntake}} <i class="fa fa-pencil" (click)="editCaloprieIntake($event)" aria-hidden="true"></i> <span (click)="editCaloprieIntake($event)" class="glyphicon glyphicon-pencil float-rigth" aria-hidden="true"></span> calories a day</span>
+  </a>
+
+
+    <div>
+      <table class="table calorie-count-tbl" >
+      <tbody>
+      <tr><td><div class="">Time left</div><div class="">{{timeLeft}} Hours</div></td>
+        <td><div class="">calries consumed</div><div class="">{{caloriConsumed}}</div></td>
+        <td><div class="">calories left/excess</div><div class="">{{ profile.caloriIntake - caloriConsumed}}</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+    <div style="text-align: center;">July 2017</div>
+    <app-dates (receivetotalDates)="receivetotalDatesParent($event)" [profile] = "profile"   ></app-dates>
+
+    <a class="" href="meal">Add Meal</a>
+
+    <app-daymeal [mealDate]="mealDate" [profile] = "profile"   ></app-daymeal>
+
+</div>
+
+</div>

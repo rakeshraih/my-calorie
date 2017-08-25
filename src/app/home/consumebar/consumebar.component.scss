@@ -1,0 +1,19 @@
+.progress{
+  margin-bottom: 0px;
+}
+
+.progress-bar-text-right{
+  border: 1px solid grey;
+  width: 20px;
+  -webkit-transform: rotate(140deg);
+  float: left;
+  margin-top: 17px;
+}
+
+.progress-bar-text-left{
+  border: 1px solid grey;
+  width: 20px;
+  -webkit-transform: rotate(30deg);
+  float: right;
+  margin-top: 17px;
+}
