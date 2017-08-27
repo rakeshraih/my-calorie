@@ -1,8 +1,8 @@
 <div style="display: block;text-align: center">
   <canvas baseChart class="barchart-canvas"
-          ([data])="doughnutChartData"
-          ([labels])="doughnutChartLabels"
-          ([chartType])="doughnutChartType"
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
 </div>

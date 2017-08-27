@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
+import { ChartsModule } from 'ng2-charts';
 
 // declare
 import { HomeComponent } from './home.component';
@@ -17,7 +18,8 @@ import { StatsComponent } from './stats/stats.component';
 @NgModule({
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    ChartsModule
   ],
   declarations: [
     ChartComponent,

@@ -6,7 +6,6 @@ import {HttpModule} from '@angular/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
-import { ChartsModule } from 'ng2-charts';
 import { FixedfooterComponent } from './footer/fixedfooter/fixedfooter.component';
 import { CalorieintakeComponent } from './calorieintake/calorieintake.component';
 
@@ -56,7 +55,6 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    ChartsModule,
     HomeModule,
     BurncalorieModule,
     ProfileModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import { Profile } from '../../profile/profile';
 
 @Component({
@@ -6,12 +6,14 @@ import { Profile } from '../../profile/profile';
   templateUrl: './consumebar.component.html',
   styleUrls: ['./consumebar.component.scss']
 })
-export class ConsumebarComponent implements OnInit {
+export class ConsumebarComponent implements OnInit, OnChanges {
 
-  @Input() profile: Profile;
+  @Input('profile') profile: Profile;
   pendingCalorie: number;
   consumedCalorie: number;
   mealDate: String;
+  cosumedPercent: Number = 0;
+  pendingPercent: Number = 100;
 
   constructor() {
     const today = new Date();
@@ -20,10 +22,13 @@ export class ConsumebarComponent implements OnInit {
     //this.consumedCalorie = ((this.profile.calorieconsumed * 100 ) / (this.profile.caloriIntake + this.profile.calorieconsumed)).toFixed(2);
     //this.pendingCalorie = '30';
     //this.consumedCalorie = '70';
-    this.setCalorieConsumption();
   }
 
   ngOnInit() {
+    this.setCalorieConsumption();
+  }
+
+  ngOnChanges() {
   }
 
   setCalorieConsumption() {
@@ -35,6 +40,8 @@ export class ConsumebarComponent implements OnInit {
     }
 
     this.consumedCalorie = intakeCaloricount;
+    this.cosumedPercent = Math.round((this.consumedCalorie * 100 ) / this.profile.caloriIntake);
+    this.pendingPercent = Math.round(((this.profile.caloriIntake - this.consumedCalorie) * 100) / this.profile.caloriIntake);
   }
 
 }

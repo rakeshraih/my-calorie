@@ -1,18 +1,18 @@
 
-<div>  <span class="box" style="float:left;color:green;">|<span>-</span>Consumed</span>
+<div>  <span class="box" style="float:left;color:green;" [style.display]="(pendingPercent === 100 ? 'none' : 'block')">|<span>-</span>Consumed</span>
   <span class="box" style="text-align: center;">&nbsp;</span>
   <span class="box" style="float:right;color:orange;">Pending<span>-</span>|</span></div>
 
 <div class="progress">
-  <div class="progress-bar bg-success" [style.width.%]="((consumedCalorie*100)/profile.caloriIntake).toPrecision(2)">
+  <div class="progress-bar bg-success" [style.width.%]="cosumedPercent">
 
-    {{((consumedCalorie*100)/profile.caloriIntake).toPrecision(2)}}%
+    {{cosumedPercent}}%
 
   </div>
 
-  <div class="progress-bar bg-warning" [style.width.%]="(((profile.caloriIntake-consumedCalorie)*100)/profile.caloriIntake).toPrecision(2)">
+  <div class="progress-bar bg-warning" [style.width.%]="pendingPercent ">
 
-    {{(((profile.caloriIntake-consumedCalorie)*100)/profile.caloriIntake).toPrecision(2)}}%
+    {{pendingPercent}}%
 
 
   </div>
