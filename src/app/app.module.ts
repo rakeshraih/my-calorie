@@ -24,6 +24,7 @@ import {MealService} from './mealform/meal.service';
 import { HomeModule } from './home/home.module';
 import { BurncalorieModule } from './burncalorie/burncalorie.module';
 import { ProfileModule } from './profile/profile.module';
+import { MyDatePickerModule } from 'mydatepicker';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -58,6 +59,7 @@ const appRoutes: Routes = [
     HomeModule,
     BurncalorieModule,
     ProfileModule,
+    MyDatePickerModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

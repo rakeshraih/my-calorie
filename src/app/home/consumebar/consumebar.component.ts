@@ -1,5 +1,8 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import { Profile } from '../../profile/profile';
+import {HomeService} from "../home.service";
+import {ProfileService} from "../../profile/profile.service";
+import {MealService} from "../../mealform/meal.service";
 
 @Component({
   selector: 'app-consumebar',
@@ -8,35 +11,33 @@ import { Profile } from '../../profile/profile';
 })
 export class ConsumebarComponent implements OnInit, OnChanges {
 
-  @Input('profile') profile: Profile;
+  // @Input('profile')
+  profile: Profile;
   pendingCalorie: number;
   consumedCalorie: number;
-  mealDate: String;
   cosumedPercent: Number = 0;
   pendingPercent: Number = 100;
 
-  constructor() {
-    const today = new Date();
-    this.mealDate = today.getDate() +  '-' + today.getMonth() + '-' + today.getFullYear();
-    //this.pendingCalorie = ((this.profile.caloriIntake * 100 ) / (this.profile.caloriIntake + this.profile.calorieconsumed)).toFixed(2);
-    //this.consumedCalorie = ((this.profile.calorieconsumed * 100 ) / (this.profile.caloriIntake + this.profile.calorieconsumed)).toFixed(2);
-    //this.pendingCalorie = '30';
-    //this.consumedCalorie = '70';
+  constructor(private mealService: MealService, private profileService: ProfileService) {
+    this.profile = this.profileService.profile;
   }
 
   ngOnInit() {
     this.setCalorieConsumption();
+
+    this.mealService.newSubject.subscribe(
+      data => this.setCalorieConsumption()
+    );
   }
 
   ngOnChanges() {
   }
 
   setCalorieConsumption() {
-    let listOfMeals = JSON.parse(localStorage.getItem(this.mealDate + 'meal'));
-    listOfMeals = (listOfMeals != null && Array.isArray(listOfMeals)) ? listOfMeals : [];
+    const listOfMeals = this.mealService.getTodaysMealList();
     let intakeCaloricount = 0;
     for (const meal of listOfMeals) {
-      intakeCaloricount += Number.parseInt(meal.totalCalories);
+      intakeCaloricount += Number.parseInt(meal.totalCalories + '');
     }
 
     this.consumedCalorie = intakeCaloricount;

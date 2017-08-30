@@ -4,10 +4,15 @@ import { Profile } from './profile';
 @Injectable()
 export class ProfileService {
 
+  profile: Profile;
+  constructor() {
+    const profileLocal = JSON.parse(localStorage.getItem('rakeshraih@gmail.com'));
+    this.profile = (profileLocal != null && profileLocal) ? profileLocal : new Profile();
+  }
+
   getUserDetails(emailId): Profile {
-    let profile = new Profile();
     const profileLocal = JSON.parse(localStorage.getItem(emailId));
-    profile = (profile != null && profile) ? profileLocal : profile;
-    return profile;
+    this.profile = (profileLocal != null && profileLocal) ? profileLocal : new Profile();
+    return this.profile;
   }
 }

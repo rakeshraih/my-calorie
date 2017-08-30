@@ -6,3 +6,5 @@
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
 </div>
+
+<div> <a href="#" (click)="changeChart($event, 'allmeals', null)"> All Meals for Today </a> | <a href="#" (click)="changeChart($event, 'default', null)"> Days Need </a> | <a href="#" (click)="changeChart($event, 'time', null)"> Time Between Meals </a></div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import {IMyDpOptions} from 'mydatepicker';
+
 @Component({
   selector: 'app-mealform',
   templateUrl: './mealform.component.html',
@@ -10,12 +12,16 @@ export class MealformComponent implements OnInit {
 
   totalCalories: number;
   parentVar: string;
-  validMeal = true;
+  validMeal = false;
   mealName  = '';
   mealTime: any;
   mealDate: any;
   id: number;
   date = '';
+  private myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'mm-dd-yyyy',
+  };
 
   constructor(private router: Router, private route: ActivatedRoute) {
 
@@ -33,6 +39,12 @@ export class MealformComponent implements OnInit {
             this.mealDate = this.date;
           }
       }
+    }else {
+      this.totalCalories = 100;
+      let month = today.getMonth(); month++;
+      this.mealName = 'test 1';
+      this.mealDate =  (today.getMonth() < 10 ? '0' + month++ : month++ ) +  '/' + (today.getDate() < 10 ? '0' + today.getDate() : today.getDate() )   + '/' + today.getFullYear();
+      this.mealTime = '01:00';
     }
   }
 

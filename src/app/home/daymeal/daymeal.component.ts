@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges,  OnInit} from '@angular/core';
 import { Profile } from '../../profile/profile';
+import {MealService} from '../../mealform/meal.service';
 
 @Component({
   selector: 'app-daymeal',
@@ -8,26 +9,32 @@ import { Profile } from '../../profile/profile';
 })
 export class DaymealComponent implements OnInit, OnChanges {
 
-  @Input() mealDate: any;
+  @Input() mealDate: string;
   @Input() profile: Profile;
 
   listOfMeals = [];
   date:  any;
 
 
-  constructor() {
+  constructor(private mealService: MealService) {
     // alert(this.mealDate);
     const today = new Date();
     this.date = today.getDate() +  '-' + today.getMonth() + '-' + today.getFullYear();
-    this.poupulateMealDetails(this.date);
-    console.log(this.date + 'meal');
+    // this.poupulateMealDetails(this.date);
+    // console.log(this.date + 'meal');
   }
 
   ngOnInit() {
+    this.listOfMeals = this.mealService.getMealListByDate(this.mealDate);
+
+    this.mealService.newSubject.subscribe(
+      data => this.listOfMeals = this.mealService.getMealListByDate(this.mealDate)
+    );
   }
 
   ngOnChanges() {
-    this.poupulateMealDetails(this.mealDate);
+    this.listOfMeals = this.mealService.getMealListByDate(this.mealDate);
+    this.mealService.newSubject.next(this.mealDate);
   }
 
   editMealDetails($event) {
@@ -35,13 +42,7 @@ export class DaymealComponent implements OnInit, OnChanges {
   }
 
   deleteMealDetails($event, id) {
-    this.listOfMeals.forEach((item, index) => {
-      if (id === item.id) {
-        this.listOfMeals.splice(index, 1);
-      }
-    });
-
-    localStorage.setItem(this.date + 'meal', JSON.stringify(this.listOfMeals));
+    this.mealService.deleteMeal(this.date, id);
     $event.preventDefault();
   }
 
@@ -49,8 +50,4 @@ export class DaymealComponent implements OnInit, OnChanges {
   //      alert('daymeal component');
   // }
 
-  poupulateMealDetails(date) {
-    this.listOfMeals = JSON.parse(localStorage.getItem(date + 'meal'));
-    this.listOfMeals = (this.listOfMeals != null && Array.isArray(this.listOfMeals)) ? this.listOfMeals : [];
-  }
 }

@@ -15,15 +15,18 @@ export class DaystatComponent implements OnInit {
   timeLeft: string;
   caloriConsumed: number;
   caloriePending: number;
+  monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  monthYear: string;
   constructor() {
     const today = new Date();
     this.mealDate = today.getDate() +  '-' + today.getMonth() + '-' + today.getFullYear();
     this.timeLeft = ( 24 - today.getHours() + (today.getMinutes() / 60)).toFixed(1);
-    this.caloriePending =100;
-    this.setCalorieConsumption();
+    this.monthYear = this.monthNames[today.getMonth()] + ' ' + today.getFullYear();
   }
 
   ngOnInit() {
+    this.setCalorieConsumption();
   }
 
   editCaloprieIntake(event) {

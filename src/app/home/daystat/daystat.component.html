@@ -2,7 +2,7 @@
 
   <div class="list-group">
   <a href="#" class="list-group-item active">
-    My need is&nbsp; <span style="text-align: right;"> {{profile.caloriIntake}} <i class="fa fa-pencil" (click)="editCaloprieIntake($event)" aria-hidden="true"></i> <span (click)="editCaloprieIntake($event)" class="glyphicon glyphicon-pencil float-rigth" aria-hidden="true"></span> calories a day</span>
+    My need is&nbsp; <span style="text-align: right;"> <a href="/profile">{{profile.caloriIntake}} </a> calories a day</span>
   </a>
 
 
@@ -16,10 +16,10 @@
     </table>
   </div>
 
-    <div style="text-align: center;">July 2017</div>
+    <div style="text-align: center;">{{monthYear}}</div>
     <app-dates (receivetotalDates)="receivetotalDatesParent($event)" [profile] = "profile"   ></app-dates>
 
-    <a class="" href="meal">Add Meal</a>
+    <a class="" href="meal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Meal</a>
 
     <app-daymeal [mealDate]="mealDate" [profile] = "profile"   ></app-daymeal>
 

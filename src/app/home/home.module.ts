@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { ChartsModule } from 'ng2-charts';
-
 // declare
 import { HomeComponent } from './home.component';
 import { ChartComponent } from './chart/chart.component';
@@ -13,6 +12,7 @@ import { DatesComponent } from './daystat/dates/dates.component';
 import { DonutchartComponent } from './donutchart/donutchart.component';
 import { ConsumebarComponent } from './consumebar/consumebar.component';
 import { StatsComponent } from './stats/stats.component';
+import {HomeService} from './home.service';
 
 
 @NgModule({
@@ -30,6 +30,7 @@ import { StatsComponent } from './stats/stats.component';
     ConsumebarComponent,
     StatsComponent,
     DatesComponent
-  ]
+  ],
+  providers: [HomeService]
 })
 export class HomeModule { }
