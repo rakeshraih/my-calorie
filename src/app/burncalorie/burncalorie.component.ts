@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BurncalorieService } from './burncalorie.service';
 
 @Component({
   selector: 'app-burncalorie',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BurncalorieComponent implements OnInit {
 
-  constructor() { }
+  workOutTypes: any;
 
-  ngOnInit() {
+  constructor(private burncalorieService: BurncalorieService) {
   }
 
+  ngOnInit() {
+    this.workOutTypes = this.burncalorieService.getMeals();
+  }
+
+  onSlideChnage(event, index) {
+    const range = Number.parseInt((<HTMLInputElement>event.target).value);
+
+  }
 }

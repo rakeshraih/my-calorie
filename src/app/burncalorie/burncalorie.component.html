@@ -1,4 +1,41 @@
 <div class="jumbotron">
-  <p class="lead">Time to burn what you ate, ofcourse in variety of ways.</p>
+  <p class="lead">Calories to burn today, 1000. or No excess calories to burn today but thats not the excuse to work out!</p>
 </div>
 <hr/>
+
+<div class="form-group row">
+  <label for="meal-name" class="col-2 col-form-label">Calories to burn</label>
+  <div class="col-10">
+    <input class="form-control" type="text" value="" id="meal-name">
+  </div>
+</div>
+<hr/>
+
+<div>
+  <table class="table calorie-count-tbl" >
+    <tbody>
+    <tr><td><div class="">Time left</div><div class="">1 Hours</div></td>
+      <td><div class="">calries consumed</div><div class="">1</div></td>
+      <td><div class="">calories left/excess</div><div class="">11</div></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+
+  <div class="col meal-type-container" *ngFor="let meal of workOutTypes; let index = index">
+    <div class="meal-type-img"></div>
+    <div class="meal-type-val">
+      <div>{{meal.name}}</div>
+      <div>{{meal.weight ? meal.weight : 0}}{{meal.measure}}</div>
+    </div>
+    <input (input) = "onSlideChnage($event,index)"  min="{{meal.minimum}}" max="{{meal.maximum}}" type="range" value="{{meal.minimum}}">
+    <div>{{meal.calorie ? meal.calorie : 0}} Calorie(s)</div>
+  </div>
+
+</div>
+
+<hr/>
+
+
+

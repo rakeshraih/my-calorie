@@ -72,6 +72,12 @@ export class DonutchartComponent implements OnInit {
         dataArray.push(meal.totalCalories);
       }
 
+      if ( mealList.length === 0) {
+        this.doughnutChartLabels.push('No Meals');
+        dataArray.push(1);
+
+      }
+
       this.doughnutChartData = dataArray;
 
     }else if ( chartType === 'time') {
@@ -82,6 +88,11 @@ export class DonutchartComponent implements OnInit {
         dataArray.push(Number.parseInt(meal.mealTime.toString().split(':')[0]));
       }
 
+      if ( mealList.length === 0) {
+        this.doughnutChartLabels.push('No Meals');
+        dataArray.push(1);
+
+      }
       this.doughnutChartData = dataArray;
 
     }else if ( chartType === 'default') {
