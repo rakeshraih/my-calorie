@@ -1,7 +1,7 @@
 
-<div>  <span class="box" style="float:left;color:green;" [style.display]="(pendingPercent === 100 ? 'none' : 'block')">|<span>-</span>Consumed</span>
+<div>  <span class="box" style="float:left;color:green;" [style.display]="(pendingPercent === 100 ? 'none' : 'block')"><span class='hide'>|-</span>Consumed</span>
   <span class="box" style="text-align: center;">&nbsp;</span>
-  <span class="box" style="float:right;color:orange;">Pending<span>-</span>|</span></div>
+  <span class="box" style="float:right;color:orange;">Pending<span class='hide'>-|</span></span></div>
 
 <div class="progress">
   <div class="progress-bar bg-success" [style.width.%]="cosumedPercent">

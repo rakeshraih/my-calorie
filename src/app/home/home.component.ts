@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './../profile/profile.service';
 import { Profile } from './../profile/profile';
 import { Router } from '@angular/router';
+import { CALORIEBURNSTATS } from './calorie-burn-stats';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +11,10 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   profile = new Profile();
+  daysQuotes= '';
+
   constructor(private profileService: ProfileService, private router: Router) {
-    this.profile = this.profileService.getUserDetails('rakeshraih@gmail.com');
+    this.profile = this.profileService.getUserDetails();
     if (Object.keys(this.profile).length === 0) {
       this.router.navigate(['/profile']);
     }
@@ -26,6 +29,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.daysQuotes = CALORIEBURNSTATS[Math.floor(Math.random() * ( (CALORIEBURNSTATS.length - 1) - 0 + 1 ) + 0)];
+    // Math.floor(Math.random()*(max-min+1)+min);
   }
 
 }
