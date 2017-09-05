@@ -33,7 +33,9 @@ export class DonutchartComponent implements OnInit {
     // );
 
     this.mealService.newSubject.subscribe(
-      data => this.changeChart(null, 'default', data),
+      data => {
+        this.changeChart(null, 'allmeals', data);
+      },
       error => alert(error)
     );
     //
@@ -55,6 +57,12 @@ export class DonutchartComponent implements OnInit {
   }
 
   changeChart(event, chartType: string, date: string) {
+
+    document.querySelector('.list-inline .active') ?
+    document.querySelector('.list-inline .active').classList.remove('active') :
+    document.querySelector('.list-inline .' + chartType).classList.add('active');
+
+    document.querySelector('.list-inline .' + chartType).classList.add('active');
 
     const labelArray = [];
     const colorArray = [];

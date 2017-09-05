@@ -19,8 +19,9 @@
     <div style="text-align: center;">{{monthYear}}</div>
     <app-dates (receivetotalDates)="receivetotalDatesParent($event)" [profile] = "profile"   ></app-dates>
 
-    <a class="" href="meal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Meal</a>
-
+    <div class="add-meal">
+      <a class="" href="meal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Meal</a>
+    </div> 
     <app-daymeal [mealDate]="mealDate" [profile] = "profile"   ></app-daymeal>
 
 </div>

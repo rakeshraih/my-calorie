@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Profile } from '../../profile/profile';
-import {forEach} from "@angular/router/src/utils/collection";
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-daystat',
