@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Profile } from './profile';
 import { Router } from '@angular/router';
 import { ProfileService } from './profile.service';
-import {isBoolean} from "util";
+import {isBoolean} from 'util';
 
 @Component({
   selector: 'app-profile',
@@ -14,9 +14,10 @@ export class ProfileComponent implements OnInit {
   profile: Profile = new Profile();
   validForm = false;
   constructor(private router: Router, private profileService: ProfileService) {
-     const localProfile = this.profileService.getUserDetails('rakeshraih@gmail.com')
+    const localProfile = this.profileService.getUserDetails();
     this.profile = localProfile != null ? localProfile : new Profile();
-    this.profile.emailId = 'rakeshraih@gmail.com';
+    this.profile.activityLevel = this.profile.activityLevel ? this.profile.activityLevel : 1;
+
   }
 
   ngOnInit() {
@@ -35,8 +36,7 @@ export class ProfileComponent implements OnInit {
   }
 
   submitMealDetails(event) {
-    const profileData =  JSON.stringify(this.profile);
-    localStorage.setItem(this.profile.emailId, profileData);
+    this.profileService.saveProfile(this.profile);
     this.router.navigate(['/home']);
   }
 

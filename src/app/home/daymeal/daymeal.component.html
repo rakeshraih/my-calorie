@@ -2,7 +2,9 @@
   <tbody>
 
   <tr class="col meal-type-container" *ngFor="let meal of listOfMeals; let index = index">
-    <td><img class="food-cup-cake" src="../../../assets/images/cupcake.png"/>&nbsp;{{meal.mealTime}}</td><td>{{meal.mealName}}</td><td>{{meal.totalCalories}}</td><td>{{((100*meal.totalCalories)/profile.caloriIntake).toPrecision(2)}}%</td><td><a href="meal"><i class="fa fa-trash-o" (click)="deleteMealDetails($event,meal.id)" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="meal/{{meal.id}}"><i class="fa fa-pencil"  aria-hidden="true"></i></a></td>
+    <td><img class="food-cup-cake" src="../../../assets/images/cupcake.png"/>&nbsp;{{meal.mealTime}}</td><td>{{meal.mealName}}</td><td>{{meal.totalCalories}}</td><td>{{((100*meal.totalCalories)/profile.caloriIntake).toPrecision(2)}}%</td><td>
+      <a href="meal"><i class="fa fa-trash-o" (click)="deleteMealDetails($event,meal)" aria-hidden="true"></i></a>&nbsp;&nbsp;
+      <a href="meal/{{meal.id}}/{{meal.date}}"><i class="fa fa-pencil"  aria-hidden="true"></i></a></td>
   </tr>
 
   </tbody>

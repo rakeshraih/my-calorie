@@ -19,10 +19,12 @@ export class DonutchartComponent implements OnInit {
   doughnutChartType: String = 'doughnut';
   listOfMeals: any;
   consumedMeal = 0;
+  chartDate = '';
 
   constructor(private mealService: MealService) {
     this.doughnutChartData = [];
     this.doughnutChartData = [];
+    this.chartDate = this.mealService.getTodaysDate();
   }
 
   ngOnInit() {
@@ -34,7 +36,8 @@ export class DonutchartComponent implements OnInit {
 
     this.mealService.newSubject.subscribe(
       data => {
-        this.changeChart(null, 'allmeals', data);
+        this.chartDate = data;
+        this.changeChart(null, 'allmeals');
       },
       error => alert(error)
     );
@@ -44,7 +47,7 @@ export class DonutchartComponent implements OnInit {
     // this.doughnutChartLabels.push('Calorie intake');
     // this.doughnutChartLabels.push('Calorie excess');
     // this.doughnutChartLabels.push('Calorie pending');
-    this.changeChart(null, 'time', null);
+    this.changeChart(null, 'time');
 
   }
   // events
@@ -56,7 +59,7 @@ export class DonutchartComponent implements OnInit {
     console.log(e);
   }
 
-  changeChart(event, chartType: string, date: string) {
+  changeChart(event, chartType: string) {
 
     document.querySelector('.list-inline .active') ?
     document.querySelector('.list-inline .active').classList.remove('active') :
@@ -74,7 +77,7 @@ export class DonutchartComponent implements OnInit {
 
     if ( chartType === 'allmeals') {
 
-      const mealList = this.mealService.getTodaysMealList();
+      const mealList = this.mealService.getMealListByDate(this.chartDate);
       for (const meal of mealList){
         this.doughnutChartLabels.push(meal.mealName);
         dataArray.push(meal.totalCalories);
@@ -90,7 +93,7 @@ export class DonutchartComponent implements OnInit {
 
     }else if ( chartType === 'time') {
 
-      const mealList = this.mealService.getMealListByDate(date);
+      const mealList = this.mealService.getMealListByDate(this.chartDate);
       for (const meal of mealList){
         this.doughnutChartLabels.push(meal.mealName);
         dataArray.push(Number.parseInt(meal.mealTime.toString().split(':')[0]));
@@ -107,7 +110,7 @@ export class DonutchartComponent implements OnInit {
       this.doughnutChartLabels.push('Calorie intake');
       this.doughnutChartLabels.push('Calorie excess');
       this.doughnutChartLabels.push('Calorie pending');
-      this.doughnutChartData = this.mealService.getDonutChartData(null);
+      this.doughnutChartData = this.mealService.getDonutChartData(this.chartDate);
       //  const localarray = this.mealService.getDonutChartData(null);
       //  for (const data of localarray) {
       //    this.doughnutChartData.push(data);

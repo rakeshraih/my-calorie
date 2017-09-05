@@ -5,14 +5,22 @@ import { Profile } from './profile';
 export class ProfileService {
 
   profile: Profile;
+  profileKey = 'my-calorie-app';
+
   constructor() {
-    const profileLocal = JSON.parse(localStorage.getItem('rakeshraih@gmail.com'));
+    const profileLocal = JSON.parse(localStorage.getItem(this.profileKey));
     this.profile = (profileLocal != null && profileLocal) ? profileLocal : new Profile();
   }
 
-  getUserDetails(emailId): Profile {
-    const profileLocal = JSON.parse(localStorage.getItem(emailId));
+  getUserDetails(): Profile {
+
+    const profileLocal = JSON.parse(localStorage.getItem(this.profileKey));
     this.profile = (profileLocal != null && profileLocal) ? profileLocal : new Profile();
     return this.profile;
+  }
+
+  saveProfile(profile) {
+    const profileData =  JSON.stringify(profile);
+    localStorage.setItem(this.profileKey, profileData);
   }
 }

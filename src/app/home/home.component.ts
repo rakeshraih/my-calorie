@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   profile = new Profile();
   constructor(private profileService: ProfileService, private router: Router) {
     this.profile = this.profileService.getUserDetails('rakeshraih@gmail.com');
-    if (!this.profile) {
+    if (Object.keys(this.profile).length === 0) {
       this.router.navigate(['/profile']);
     }
      //  this.profile.calorieconsumed = 100;

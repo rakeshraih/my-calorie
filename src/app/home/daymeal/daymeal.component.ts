@@ -41,8 +41,8 @@ export class DaymealComponent implements OnInit, OnChanges {
     $event.preventDefault();
   }
 
-  deleteMealDetails($event, id) {
-    this.mealService.deleteMeal(this.date, id);
+  deleteMealDetails($event, meal) {
+    this.mealService.deleteMeal(meal);
     $event.preventDefault();
   }
 

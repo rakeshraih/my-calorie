@@ -1,3 +1,4 @@
+import { MealService } from './../../mealform/meal.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Profile } from '../../profile/profile';
 import {forEach} from '@angular/router/src/utils/collection';
@@ -15,12 +16,12 @@ export class DaystatComponent implements OnInit {
   timeLeft: string;
   caloriConsumed: number;
   caloriePending: number;
-  monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   monthYear: string;
-  constructor() {
+  constructor(private mealService: MealService) {
     const today = new Date();
-    this.mealDate = today.getDate() +  '-' + today.getMonth() + '-' + today.getFullYear();
+    this.mealDate = this.mealService.getTodaysDate();
     this.timeLeft = ( 24 - today.getHours() + (today.getMinutes() / 60)).toFixed(1);
     this.monthYear = this.monthNames[today.getMonth()] + ' ' + today.getFullYear();
   }

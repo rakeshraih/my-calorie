@@ -30,7 +30,7 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   // { path: 'home', component: HomeComponent},
   { path: 'meal', component: MealformComponent},
-  { path: 'meal/:id', component: MealformComponent},
+  { path: 'meal/:id/:date', component: MealformComponent},
   // { path: 'burn-calorie', loadChildren: 'app/burncalorie/burncalorie.module#BurncalorieModule'},
   // { path: 'home', loadChildren: 'app/home/home.module#HomeModule' },
   // { path: '#', redirectTo: '/home' , pathMatch: 'full'},

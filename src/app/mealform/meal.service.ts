@@ -6,7 +6,7 @@ import { MealType } from './mealtype';
 
 import { MEALSTYPE } from './mock-meals';
 import {ProfileService} from '../profile/profile.service';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class MealService {
@@ -40,37 +40,33 @@ export class MealService {
 
     let listOfMeals = JSON.parse(localStorage.getItem(meal.date + 'meal'));
 
-    if (meal.id) {
-      for (const mealLocal of listOfMeals){
-        if ( meal.id === mealLocal.id ) {
-          mealLocal.totalCalories = meal.totalCalories;
-          mealLocal.mealName = meal.mealName;
-          mealLocal.mealTime = meal.mealTime;
-          mealLocal.mealDate = meal.date;
-        }
-      }
+    const searchObject = !listOfMeals ? null : listOfMeals.find(x => x.id === meal.id);
 
+    if ( searchObject ) {
+      searchObject.totalCalories = meal.totalCalories;
+      searchObject.mealName = meal.mealName;
+      searchObject.mealTime = meal.mealTime;
+      searchObject.mealDate = meal.date;
     }else {
-      const nowTime = new Date();
-      meal.id = nowTime.getTime();
       listOfMeals = (listOfMeals != null && Array.isArray(listOfMeals) ) ? listOfMeals : [];
       listOfMeals.push(meal);
     }
+
     localStorage.setItem(meal.date + 'meal', JSON.stringify(listOfMeals));
 
   }
 
-  deleteMeal(date, id) {
-    const meals = this.todaysMealList;
+  deleteMeal(mealLocal) {
+    const meals = this.getMealListByDate(mealLocal.date);
     meals.forEach((meal: Meal, index) => {
-      if (id === meal.id) {
-        this.todaysMealList.splice(index, 1);
+      if (mealLocal.id === meal.id) {
+        meals.splice(index, 1);
       }
     });
 
-    localStorage.setItem(date + 'meal', JSON.stringify(this.todaysMealList));
-    this.calculateDonutchart(date);
-    this.newSubject.next(date);
+    localStorage.setItem(mealLocal.date + 'meal', JSON.stringify(meals));
+    this.calculateDonutchart(mealLocal.date);
+    this.newSubject.next(mealLocal.date);
   }
 
   getDonutChartData(date: string): number[] {
@@ -88,13 +84,19 @@ export class MealService {
     }
 
     this.donutChartMap.push(totalCalorie);
-    this.donutChartMap.push((totalCalorie - this.profileService.profile.caloriIntake) < 0 ? 0 : (totalCalorie - this.profileService.profile.caloriIntake));
+    this.donutChartMap.push((totalCalorie - this.profileService.profile.caloriIntake) < 0 ?
+    0 : (totalCalorie - this.profileService.profile.caloriIntake));
     this.donutChartMap.push(this.profileService.profile.caloriIntake - totalCalorie);
     return this.donutChartMap;
   }
 
   getTodaysDate(): string {
-    const today = new Date();
-    return today.getDate() +  '-' + today.getMonth() + '-' + today.getFullYear();
+    const date = new Date();
+    let dd: any = date.getDate();
+    let mm: any = date.getMonth() + 1;
+    const yyyy = date.getFullYear();
+    if (dd < 10) { dd = '0' + dd; }
+    if (mm < 10) { mm = '0' + mm; }
+    return mm + '-' + dd + '-' + yyyy;
   }
 }

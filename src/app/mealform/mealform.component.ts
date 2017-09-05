@@ -1,3 +1,4 @@
+import { MealService } from './meal.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -23,27 +24,28 @@ export class MealformComponent implements OnInit {
     dateFormat: 'mm-dd-yyyy',
   };
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private mealService: MealService) {
 
     this.parentVar = '';
     const today = new Date();
-    this.date = today.getDate() +  '-' + today.getMonth() + '-' + today.getFullYear();
-    if (this.route.snapshot.paramMap.get('id')) {
+    this.date = this.mealService.getTodaysDate();
+    if (this.route.snapshot.paramMap.get('id')  && this.route.snapshot.paramMap.get('date')) {
       this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-      const listOfMeals = JSON.parse(localStorage.getItem(this.date + 'meal'));
+      this.mealDate = this.route.snapshot.paramMap.get('date');
+      const listOfMeals = JSON.parse(localStorage.getItem(this.mealDate + 'meal'));
       for (const meal of listOfMeals){
           if ( this.id === meal.id ) {
             this.totalCalories = meal.totalCalories;
             this.mealName = meal.mealName;
             this.mealTime = meal.mealTime;
-            this.mealDate = this.date;
+            this.mealDate = meal.date;
           }
       }
     }else {
       this.totalCalories = 100;
       let month = today.getMonth(); month++;
       this.mealName = 'test 1';
-      this.mealDate =  (today.getMonth() < 10 ? '0' + month++ : month++ ) +  '/' + (today.getDate() < 10 ? '0' + today.getDate() : today.getDate() )   + '/' + today.getFullYear();
+      this.mealDate =  this.mealService.getTodaysDate();
       this.mealTime = '01:00';
     }
   }
@@ -65,25 +67,29 @@ export class MealformComponent implements OnInit {
 
   submitMealDetails($event) {
 
-    let listOfMeals = JSON.parse(localStorage.getItem(this.date + 'meal'));
+    // const listOfMeals = JSON.parse(localStorage.getItem(this.date + 'meal'));
 
-    if (this.id) {
-      for (const meal of listOfMeals){
-        if ( this.id === meal.id ) {
-          meal.totalCalories = this.totalCalories;
-          meal.mealName = this.mealName;
-          meal.mealTime = this.mealTime;
-          meal.mealDate = this.date;
-        }
-      }
-
-    }else {
+    // if (this.id) {
+    //   for (const meal of listOfMeals){
+    //     if ( this.id === meal.id ) {
+    //       meal.totalCalories = this.totalCalories;
+    //       meal.mealName = this.mealName;
+    //       meal.mealTime = this.mealTime;
+    //       meal.mealDate = this.date;
+    //     }
+    //   }
+    //   localStorage.setItem(this.date + 'meal', JSON.stringify(listOfMeals));
+    // }else {
         const nowTime = new Date();
-        const valueObject = {'totalCalories' : this.totalCalories, 'date' : this.date, 'mealName' : this.mealName, 'mealTime' : this.mealTime, 'id': nowTime.getTime()};
-        listOfMeals = (listOfMeals != null && Array.isArray(listOfMeals) ) ? listOfMeals : [];
-        listOfMeals.push(valueObject);
-    }
-    localStorage.setItem(this.date + 'meal', JSON.stringify(listOfMeals));
+    //     const valueObject = {'totalCalories' : this.totalCalories, 'date' :
+    //      this.date, 'mealName' : this.mealName, 'mealTime' : this.mealTime, 'id': nowTime.getTime()};
+    //     // listOfMeals = (listOfMeals != null && Array.isArray(listOfMeals) ) ? listOfMeals : [];
+    //     // listOfMeals.push(valueObject);
+    //     this.mealService.addMeal(valueObject);
+    // }
+    const valueObject = {'totalCalories' : this.totalCalories, 'date' :
+    this.mealDate, 'mealName' : this.mealName, 'mealTime' : this.mealTime, 'id': this.id ? this.id : nowTime.getTime()};
+    this.mealService.addMeal(valueObject);
     this.router.navigate(['/home']);
 
   }
