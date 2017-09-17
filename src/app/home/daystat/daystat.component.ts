@@ -21,7 +21,7 @@ export class DaystatComponent implements OnInit {
   monthYear: string;
   constructor(private mealService: MealService) {
     const today = new Date();
-    this.mealDate = this.mealService.getTodaysDate();
+    this.mealDate = this.mealService.getFormattedDate(new Date());
     this.timeLeft = ( 24 - today.getHours() + (today.getMinutes() / 60)).toFixed(1);
     this.monthYear = this.monthNames[today.getMonth()] + ' ' + today.getFullYear();
   }

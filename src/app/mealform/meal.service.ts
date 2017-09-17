@@ -23,13 +23,13 @@ export class MealService {
   }
 
   getTodaysMealList(): Meal[] {
-    const listOfMeals = JSON.parse(localStorage.getItem(this.getTodaysDate() + 'meal'));
+    const listOfMeals = JSON.parse(localStorage.getItem(this.getFormattedDate(new Date()) + 'meal'));
     this.todaysMealList = (listOfMeals != null && Array.isArray(listOfMeals)) ? listOfMeals : [];
     return this.todaysMealList;
   }
 
   getMealListByDate(date: string): Meal[] {
-    date = date ? date : this.getTodaysDate();
+    date = date ? date : this.getFormattedDate(new Date());
     const listOfMeals = JSON.parse(localStorage.getItem(date + 'meal'));
     this.todaysMealList = (listOfMeals != null && Array.isArray(listOfMeals)) ? listOfMeals : [];
     return this.todaysMealList;
@@ -70,7 +70,7 @@ export class MealService {
   }
 
   getDonutChartData(date: string): number[] {
-    date = date ? date : this.getTodaysDate();
+    date = date ? date : this.getFormattedDate(new Date());
     return this.calculateDonutchart(date);
   }
 
@@ -90,8 +90,7 @@ export class MealService {
     return this.donutChartMap;
   }
 
-  getTodaysDate(): string {
-    const date = new Date();
+  getFormattedDate(date): string {
     let dd: any = date.getDate();
     let mm: any = date.getMonth() + 1;
     const yyyy = date.getFullYear();

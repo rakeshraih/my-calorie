@@ -24,7 +24,7 @@ export class DonutchartComponent implements OnInit {
   constructor(private mealService: MealService) {
     this.doughnutChartData = [];
     this.doughnutChartData = [];
-    this.chartDate = this.mealService.getTodaysDate();
+    this.chartDate = this.mealService.getFormattedDate(new Date());
   }
 
   ngOnInit() {
@@ -51,11 +51,11 @@ export class DonutchartComponent implements OnInit {
 
   }
   // events
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
 
-  public chartHovered(e:any):void {
+  public chartHovered(e: any): void {
     console.log(e);
   }
 

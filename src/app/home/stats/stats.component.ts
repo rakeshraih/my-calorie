@@ -1,4 +1,7 @@
+import { CommonService } from './../../common.service';
+import { MealService } from './../../mealform/meal.service';
 import { Component, OnInit } from '@angular/core';
+import { Meal } from './../../mealform/meal';
 
 @Component({
   selector: 'app-stats',
@@ -11,14 +14,11 @@ export class StatsComponent implements OnInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+  public barChartLabels: string[] = [];
   public barChartType = 'bar';
   public barChartLegend = true;
 
-  public barChartData: any [] = [
-    // {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], label: 'Calories'}
-  ];
+  public barChartData: any [] = [{data: [], label: 'Calories'}];
 
   // events
   public chartClicked(e: any): void {
@@ -49,9 +49,46 @@ export class StatsComponent implements OnInit {
      * assign it;
      */
   }
-  constructor() { }
+  constructor(private mealService: MealService, private commonService: CommonService) {
+
+  }
 
   ngOnInit() {
+
+    this.mealService.newSubject.subscribe(
+      data => {
+        this.barChartLabels = this.commonService.getDatesByDays(30);
+        this.setDataForChart();
+      },
+      error => alert(error)
+    );
   }
+
+setDataForChart() {
+
+   let totalCalories = 0;
+   const dataArray = [];
+   const labelArray = [];
+
+   //debugger;
+   for (const datestr of this.barChartLabels) {
+    const listOfMeals = this.mealService.getMealListByDate(datestr);
+    totalCalories = 0;
+    const datestrArray = datestr.split('-');
+    labelArray.push(datestrArray[0] + '/' + datestrArray[1]);
+    if ( !listOfMeals || listOfMeals.length === 0) {
+      dataArray.push(totalCalories);
+      continue;
+    }
+    for (const meal of listOfMeals ) {
+      totalCalories += meal.totalCalories;
+     }
+     dataArray.push(totalCalories);
+   }
+
+   this.barChartData[0]['data'] = dataArray.reverse();
+   this.barChartLabels = labelArray.reverse();
+
+ }
 
 }

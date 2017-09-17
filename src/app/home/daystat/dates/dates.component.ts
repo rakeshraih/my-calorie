@@ -1,3 +1,4 @@
+import { CommonService } from './../../../common.service';
 import { MealService } from './../../../mealform/meal.service';
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { Profile } from '../../../profile/profile';
@@ -14,12 +15,12 @@ export class DatesComponent implements OnInit {
 
   datesArray: any;
 
-  constructor(private mealService: MealService) {
+  constructor(private mealService: MealService, private commonService: CommonService) {
     const now = new Date();
     this.datesArray = [];
     const nowDate = now.getDate();
     // let count = nowDate - 9;
-    this.datesArray = this.Last10Days().reverse();
+    this.datesArray = this.commonService.getDatesByDays(10).reverse();
 
     // for (const datestr of dateArray) {
 
@@ -39,27 +40,6 @@ export class DatesComponent implements OnInit {
     this.mealService.newSubject.next(date);
     event.preventDefault();
   }
-
-  formatDate(date) {
-    let dd = date.getDate();
-    let mm = date.getMonth() + 1;
-    const yyyy = date.getFullYear();
-    if (dd < 10) { dd = '0' + dd; }
-    if (mm < 10) { mm = '0' + mm; }
-    date = mm + '-' + dd + '-' + yyyy;
-    return date;
- }
-
-
-Last10Days () {
-  const result = [];
-    for (let i = 0; i < 10; i++) {
-       const d = new Date();
-        d.setDate(d.getDate() - i);
-        result.push(this.formatDate(d) );
-    }
-    return result;
- }
 
 // console.log(Last7Days())
 

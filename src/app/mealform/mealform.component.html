@@ -10,16 +10,9 @@
 </div>
 
 <div class="form-group row">
-  <label for="example-date-input" class="col-2 col-form-label">Date</label>
+  <label for="example-date-input" class="col-2 col-form-label">Date Time</label>
   <div class="col-10">
-    <input [(ngModel)] = "mealDate" (change)="validateData($event)" class="form-control" type="text" value="{{mealDate}}" id="example-date-input">
-    <!--<my-date-picker name="mydate" (change)="validateData($event)" [options]="myDatePickerOptions"-->
-                    <!--[(ngModel)]="mealDate" required></my-date-picker>-->
-  </div>
-
-  <label for="example-time-input" class="col-2 col-form-label">Time</label>
-  <div class="col-10">
-    <input [(ngModel)] = "mealTime" (change)="validateData($event)" class="form-control" type="time" value="{{mealTime}}" id="example-time-input">
+    <!-- <date-picker mode="datetime" (change)="validateData($event)" [(ngModel)] = "mealDateTime" name="mealDateTime"></date-picker>     -->
   </div>
 </div>
 

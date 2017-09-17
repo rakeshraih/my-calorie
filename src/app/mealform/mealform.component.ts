@@ -2,8 +2,6 @@ import { MealService } from './meal.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import {IMyDpOptions} from 'mydatepicker';
-
 @Component({
   selector: 'app-mealform',
   templateUrl: './mealform.component.html',
@@ -17,18 +15,15 @@ export class MealformComponent implements OnInit {
   mealName  = '';
   mealTime: any;
   mealDate: any;
+  mealDateTime: any;
   id: number;
   date = '';
-  private myDatePickerOptions: IMyDpOptions = {
-    // other options...
-    dateFormat: 'mm-dd-yyyy',
-  };
 
   constructor(private router: Router, private route: ActivatedRoute, private mealService: MealService) {
 
     this.parentVar = '';
     const today = new Date();
-    this.date = this.mealService.getTodaysDate();
+    this.date = this.mealService.getFormattedDate(new Date());
     if (this.route.snapshot.paramMap.get('id')  && this.route.snapshot.paramMap.get('date')) {
       this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
       this.mealDate = this.route.snapshot.paramMap.get('date');
@@ -37,16 +32,14 @@ export class MealformComponent implements OnInit {
           if ( this.id === meal.id ) {
             this.totalCalories = meal.totalCalories;
             this.mealName = meal.mealName;
-            this.mealTime = meal.mealTime;
-            this.mealDate = meal.date;
+            this.mealDateTime = new Date(meal.date.replace('-', '/') + ' ' + meal.mealTime + ':00');
           }
       }
     }else {
       this.totalCalories = 100;
       let month = today.getMonth(); month++;
-      this.mealName = 'test 1';
-      this.mealDate =  this.mealService.getTodaysDate();
-      this.mealTime = '01:00';
+      this.mealName = 'Meal 1';
+      this.mealDateTime =  new Date();
     }
   }
 
@@ -87,6 +80,12 @@ export class MealformComponent implements OnInit {
     //     // listOfMeals.push(valueObject);
     //     this.mealService.addMeal(valueObject);
     // }
+    const formDate = new Date(this.mealDateTime._d);
+    if (!formDate) {
+       return;
+    }
+    this.mealDate = this.mealService.getFormattedDate(formDate);
+    this.mealTime = formDate.getHours() + ':' + formDate.getMinutes();
     const valueObject = {'totalCalories' : this.totalCalories, 'date' :
     this.mealDate, 'mealName' : this.mealName, 'mealTime' : this.mealTime, 'id': this.id ? this.id : nowTime.getTime()};
     this.mealService.addMeal(valueObject);

@@ -15,16 +15,15 @@ import { PageNotFoundComponentComponent } from './page-not-found-component/page-
 import { MealformComponent } from './mealform/mealform.component';
 import { MealtypeComponent } from './mealform/mealtype/mealtype.component';
 
-
+import { DatePickerModule } from 'angular-io-datepicker';
 // service
 import {ProfileService} from './profile/profile.service';
 import {MealService} from './mealform/meal.service';
-
+import { CommonService } from './common.service';
 // import custom modules
 import { HomeModule } from './home/home.module';
 import { BurncalorieModule } from './burncalorie/burncalorie.module';
 import { ProfileModule } from './profile/profile.module';
-import { MyDatePickerModule } from 'mydatepicker';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -59,7 +58,7 @@ const appRoutes: Routes = [
     HomeModule,
     BurncalorieModule,
     ProfileModule,
-    MyDatePickerModule,
+    //DatePickerModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
@@ -67,7 +66,7 @@ const appRoutes: Routes = [
   ],
   exports: [
   ],
-  providers: [MealService, ProfileService],
+  providers: [MealService, ProfileService, CommonService],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA,
   NO_ERRORS_SCHEMA ]
