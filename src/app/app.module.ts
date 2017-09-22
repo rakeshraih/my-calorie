@@ -58,7 +58,7 @@ const appRoutes: Routes = [
     HomeModule,
     BurncalorieModule,
     ProfileModule,
-    //DatePickerModule,
+    DatePickerModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
