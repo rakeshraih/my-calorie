@@ -17,6 +17,7 @@ export class DonutchartComponent implements OnInit {
   doughnutChartLabels: string[] = [];
   doughnutChartData: number[] = [];
   doughnutChartType: String = 'doughnut';
+  doughnutChartOptions: any;
   listOfMeals: any;
   consumedMeal = 0;
   chartDate = '';
@@ -25,6 +26,9 @@ export class DonutchartComponent implements OnInit {
     this.doughnutChartData = [];
     this.doughnutChartData = [];
     this.chartDate = this.mealService.getFormattedDate(new Date());
+    this.doughnutChartOptions = {
+      responsive: true
+   };
   }
 
   ngOnInit() {

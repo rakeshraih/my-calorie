@@ -2,6 +2,7 @@
   <canvas baseChart class="barchart-canvas"
           [data]="doughnutChartData"
           [labels]="doughnutChartLabels"
+          [options]="doughnutChartOptions"
           [chartType]="doughnutChartType"
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
