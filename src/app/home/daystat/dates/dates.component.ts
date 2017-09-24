@@ -14,21 +14,24 @@ export class DatesComponent implements OnInit {
   @Input() profile: Profile;
 
   datesArray: any;
+  currentDate: Date;
+  nextDateShow: boolean;
+  monthYear: string;
+  monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];  
+  nextDate: Date;
+  previousDate: Date;
 
   constructor(private mealService: MealService, private commonService: CommonService) {
     const now = new Date();
     this.datesArray = [];
     const nowDate = now.getDate();
     // let count = nowDate - 9;
-    this.datesArray = this.commonService.getDatesByDays(10).reverse();
-
-    // for (const datestr of dateArray) {
-
-    // }
-    // while (count <= nowDate) {
-    //   this.datesArray.push((count <= 9 ? '0' : '') + count + '-' + now.getMonth() + '-' + now.getFullYear());
-    //   count++;
-    // }
+    this.currentDate = new Date();
+    this.datesArray = this.commonService.getDatesByDayAndDate(10, this.currentDate).reverse();
+    console.log(this.datesArray);
+    this.nextDate = new Date();
+    this.previousDate = this.commonService.getDatesAfterORBefore(10, this.nextDate, false);
+    this.monthYear = this.monthNames[this.currentDate.getMonth()] + ' ' + this.currentDate.getFullYear();
 
   }
 
@@ -41,6 +44,27 @@ export class DatesComponent implements OnInit {
     event.preventDefault();
   }
 
-// console.log(Last7Days())
+  loadPreviousDate(event) {
+    this.nextDate = this.previousDate;
+    this.previousDate = this.commonService.getDatesAfterORBefore(10, this.previousDate, false);
+
+    this.datesArray = this.commonService.getDatesByDayAndDate(10, this.nextDate).reverse();
+    this.nextDateShow = true;
+    this.monthYear = this.monthNames[this.nextDate.getMonth()] + ' ' + this.nextDate.getFullYear();    
+    event.preventDefault();
+  }
+
+
+  loadNextDate(event) {
+
+    debugger;
+    this.previousDate = this.nextDate;
+    this.nextDate = this.commonService.getDatesAfterORBefore(10, this.nextDate, true);
+    
+    this.datesArray = this.commonService.getDatesByDayAndDate(10, this.nextDate).reverse();
+    this.nextDateShow =  this.nextDate.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) ? false : true;
+    this.monthYear = this.monthNames[this.nextDate.getMonth()] + ' ' + this.nextDate.getFullYear();    
+    event.preventDefault();
+  }
 
 }

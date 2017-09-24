@@ -25,4 +25,24 @@ getDatesByDays (daysCount: number) {
     }
     return result;
  }
+
+ getDatesByDayAndDate (daysCount: number, dd: Date) {
+  const result = [];
+    for (let i = 0; i < daysCount; i++) {
+        const d = new Date(dd);
+        d.setDate(d.getDate() - i);
+        result.push(this.formatDate(d) );
+    }
+    return result;
+ }
+
+ getDatesAfterORBefore (daysCount: number, dd: Date, futureOrPast: boolean) {
+   let d;
+   for (let i = 0; i < daysCount; i++) {
+       d = new Date(dd);
+       futureOrPast ? d.setDate(d.getDate() + i) : d.setDate(d.getDate() - i);
+    }
+    return  d;
+ }
+
 }

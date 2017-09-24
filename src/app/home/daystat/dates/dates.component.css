@@ -1,0 +1,12 @@
+.show-default{
+    display: block !important;
+}
+
+.page-item.no-next .page-link:hover{
+    background: transparent;
+    cursor: default;
+}
+.display-center{
+    justify-content: center;
+    display: flex;
+  }
