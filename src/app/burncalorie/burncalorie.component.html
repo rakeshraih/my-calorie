@@ -1,41 +1,53 @@
-<div class="jumbotron">
+<div class="jumbotron hide">
   <p class="lead">Calories to burn today, 1000. or No excess calories to burn today but thats not the excuse to work out!</p>
 </div>
-<hr/>
 
+
+<br/>
 <div class="form-group row">
   <label for="meal-name" class="col-2 col-form-label">Calories to burn</label>
   <div class="col-10">
-    <input class="form-control" type="text" value="" id="meal-name">
+    <input class="form-control" type="text" value="{{calorieBurnInput}}" id="meal-name">
   </div>
 </div>
-<hr/>
 
-<div>
-  <table class="table calorie-count-tbl" >
-    <tbody>
-    <tr><td><div class="">Time left</div><div class="">1 Hours</div></td>
-      <td><div class="">calries consumed</div><div class="">1</div></td>
-      <td><div class="">calories left/excess</div><div class="">11</div></td></tr>
-    </tbody>
-  </table>
+<br/>
+<div class="list-group">
+  <a href="#" class="list-group-item active">
+    Days need <span style="text-align: right;"> {{profile.caloriIntake}}</span>
+  </a>
+
+
+    <div>
+      <table class="table calorie-count-tbl" >
+      <tbody>
+      <tr><td><div class="">Time left</div><div class=""><b>{{timeLeft}} Hours</b></div></td>
+        <td><div class="">calries consumed</div><div class=""><b>{{caloriConsumed}}</b></div></td>
+        <td><div class="">calories left/excess</div><div class=""><b>{{ profile.caloriIntake - caloriConsumed}}</b></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
+<br/>
 <div class="row">
 
-  <div class="col meal-type-container" *ngFor="let meal of workOutTypes; let index = index">
+  <div class="col meal-type-container" *ngFor="let workout of workOutTypes; let index = index">
     <div class="meal-type-img"></div>
     <div class="meal-type-val">
-      <div>{{meal.name}}</div>
-      <div>{{meal.weight ? meal.weight : 0}}{{meal.measure}}</div>
+      <div>{{workout.name}}</div>
+      <div>{{workout.weight ? workout.weight : 0}}{{workout.measure}}</div>
     </div>
-    <input (input) = "onSlideChnage($event,index)"  min="{{meal.minimum}}" max="{{meal.maximum}}" type="range" value="{{meal.minimum}}">
-    <div>{{meal.calorie ? meal.calorie : 0}} Calorie(s)</div>
+    <input step="10" (input) = "onSlideChnage($event,index)"  min="{{workout.minimum}}" max="{{workout.maximum}}" type="range" value="{{workout.minimum}}">
+    <div>{{workout.calorie ? workout.calorie : 0}} Cal</div>
   </div>
 
 </div>
 
+<br/><br/><br/>
+
+
+
+
 <hr/>
-
-
-

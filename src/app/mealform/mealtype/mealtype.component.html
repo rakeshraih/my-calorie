@@ -1,13 +1,14 @@
 <div class="row">
 
 <div class="col meal-type-container" *ngFor="let meal of mealTyleList; let index = index">
-  <div class="meal-type-img"></div>
+  <!-- <div class="meal-type-img"></div> -->
+    <div class=""></div>
   <div class="meal-type-val">
     <div>{{meal.name}}</div>
     <div>{{meal.weight ? meal.weight : 0}}{{meal.measure}}</div>
   </div>
   <input (input) = "onSlideChnage($event,index)"  min="{{meal.minimum}}" max="{{meal.maximum}}" type="range" value="{{meal.minimum}}">
-  <div>{{meal.calorie ? meal.calorie : 0}} Calorie(s)</div>
+  <div>{{meal.calorie ? meal.calorie : 0}} Cal</div>
 </div>
 
 </div>
